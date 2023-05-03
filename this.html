@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>this w JS</h2>
+
+    <p>this, wskazuje na obiekt będący konntekstem wykonania np. this.nazwaPola, tak to działa w większości języków programowania</p>
+    <p>W JS jest to bardziej skomplikowane</p>
+    <p>to, na co wskazuje this, zależy nie tylko od sposobu definicji funkcji, ale i od formy i kontekstu wywołania</p>
+    <h2>Domyślny this</h2>
+    <p>Domyślnie this wskazuje na obiekt hosta czyli "window" w przeglądarkach, a w node.js na "module.export". Wszystko to jeżeli this jest poza jaką kolwiek funkcją</p>
+    <p>Wywołanie poprzez referecję funkcji: this wskazuje na window</p>
+    <h2>komentarze w skrypcie</h2>
+
+
+    <script>
+
+
+        
+
+        // domyślne this - zwraca window
+        // console.log(this)
+
+        // wywołanie poprzez referencję do funkcji - zwraca window (chyba, że używamy strict mode to zwrócony zostanie undefined)
+        // function fun() {
+        //     return this
+        // }
+        // console.log(fun())
+
+        // metoda obiektu czyli wywolanie z kropką - obiekt kontekstowy
+
+        // var o = {
+        //     a: "o object",
+        //     method: function fun() {
+        //         return this
+        //     }
+        // }
+        // console.log(o.method())
+
+        // przy takim wywołaniu this wskazuje na obiekt będący po lewej stronie kropki
+
+        // var o = {
+        //     a:"o object",
+        //     method: function fun() {
+        //         return this
+        //     }
+        // }
+
+        // var otherO = {
+        //     a:"otherO object",
+        //     method: o.method
+        // }
+
+        // console.log("other o", otherO.method())
+
+        // istnieją innte mechanizmy pozwalające sprecyzowanć czym am być this podczas lub przed wywołaniem funkcji
+        // funkcje w JS są tzw. obywatelami pierwszej kategorii (first class citizens) oraz obiektami.
+        // Oznacza to, że można je przechowywać jako parametry do innych funkcji, oraz że same mogą mieć metody.
+
+
+        // metody call i apply: 
+        // const o = {
+        //     a: "o object",
+        //     method: function fu(){
+        //         console.log(this, arguments)
+        //     }
+        // }
+
+        // const x = {
+        //     a: "x object"
+        // }
+
+        // o.method(1,2)
+        // o.method.call(x, 1, 2, 3)
+        // o.method.apply(x, [1,2,3])
+
+        // Metoda bind
+        // Nie wywołuje ona funkcji na miejscu, ale zwraca referencję do funkcji, której this zawsze wskazuje na przekazany obiekt.
+
+        // const m = o.method.bind(x, 1, 2)
+        // m(3,4)
+        // setTimeout(m)
+
+        // Ignorowanie this - nowy kontekst zostanie zignorowany, a w jego miejsce użyte zostanie window
+
+        // const ignored = o.method.call(null, 1)
+
+        // Dużo lepiej jest zrobić tak: 
+
+        // const ignored = o.method.call(Object.create(null), 1)
+
+
+        // Wywołanie z new
+        // Funkcję w JS można wywołać jako konstruktor, czyli z użyciem operatora new.
+        // 
+
+        // function Clazz(a,b) {
+        //     this.a = 1
+        //     this.b = 2
+
+        //     return this
+        // }
+
+        // Clazz.prototype.method = function() {
+        //     l("Prototype", this)
+        // }
+
+        // const toBind = {c:3}
+
+        // const instance = new Clazz() // =>  nowy obiekt
+        // const secondInstance = new (Clazz.bind(toBind)) // => this === nowy obiekt
+
+
+        // Funkcje strzałkowe
+        // W funkcjach strzałkowych this ustawiany jest w sposób leksykalny i zależny od miejsca, w którym taka funkcja została zdefiniowana
+        // This w funkcji strzałkowej zawsze wskazuje na to samo, co w funkcji "powyższej" 
+        // Funckcje strzałkowe nie tworzą kontekstu
+
+        // function arrowFun() {
+        //     return ()=>{
+        //         return this
+        //     }
+        // }
+
+        // var firstObj = {
+        //     a:2
+        // }
+
+
+        // var secondObj = {
+        //     a:3
+        // }
+
+        // var bar = arrowFun.call(firstObj)
+
+        // console.log(bar()) // this === first obj
+        // console.log(bar.call(secondObj)) // this === first obj
+        // console.log(new bar()) uncaught error
+
+        // funkcje strzałkowe nie dają możliwości nadpisania this - zawsze zostają wykonane z tym orginalnym
+
+
+        // Podsumowanie
+
+        // 1 - arrow function = użyj this z otaczającego scope
+        // 2 - wywołanie z new = użyj nowo tworzonego obiektu
+        // 3 - call, apply, bind = użyj przekazanego obiektu,
+        // 4 - wywołanie z kropką, jako metoda = użyj obiektu, na którym została wykonana
+        // 5 - domyślnie = undefined w strict mode, obiekt globalny w innym wypadku
+
+        // person.showName() - person to kontekst wywoływanej funkcji
+
+
+    </script>
+</body>
+</html

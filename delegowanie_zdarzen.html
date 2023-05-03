@@ -5,8 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- Skrypt uruchomi się po całkowitym załadowaniu strony -->
+    <script>
+        window.onload = function() {
+            var list = document.getElementsByTagName("ul")[0];
+
+            list.addEventListener('click', function(e) {
+                if (e.target.tagName.toLowerCase() == "a") {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    alert("Cele zdarzenia e.target.tagName: " + e.target.tagName
+						+ "\nTreść celu zdarzenia e.target.textContent: " + e.target.textContent
+						+ "\nAdres celu zdarzenia e.target.href: " + e.target.href
+					);
+                } else {
+                    e.stopPropagation()
+                }
+
+            }, false)
+        }
+        console.log(this)
+    </script>
 </head>
 <body>
+    <h1>Delegowanie zdarzeń</h1>
+    <p>Gdy na stronie znajduje się wiele eelementów i każdy z nich ma co najmniej jeden uchwyt zdarzenia (np. click). użytkownich nie jest w stanie kliknąć kliku przycisków na raz, tak więc spora część pracy, potrzebnej do rejestrownia zdarzeń jest zbędna</p>
+    <p>Delegacja zdarzeń w JavaScript to technika programowania polegająca na przypisywaniu obsługi zdarzeń dla elementów nadrzędnych w hierarchii dokumentu zamiast dla elementów podrzędnych, na których rzeczywiście występują te zdarzenia. </p>
+    <p>W praktyce oznacza to, że zamiast przypisywać funkcję obsługi zdarzenia dla każdego elementu podrzędnego osobno, przypisujemy ją dla elementu nadrzędnego, który obejmuje wszystkie elementy podrzędne. Kiedy wtedy zdarzenie zostanie wywołane na elemencie podrzędnym, jest ono przechwytywane przez element nadrzędny i przekazywane w górę hierarchii dokumentu, aż do momentu, gdy zostanie obsłużone przez odpowiednią funkcję.</p>
+    <p>Delegacja zdarzeń jest szczególnie przydatna w przypadku dynamicznie generowanych elementów lub w przypadku obsługi zdarzeń dla wielu elementów o podobnych funkcjonalnościach, np. listy produktów lub elementy menu. Dzięki delegacji zdarzeń możemy uniknąć przypisywania funkcji obsługi zdarzeń dla każdego elementu osobno i zamiast tego przypisać jedną funkcję do elementu nadrzędnego, co zwiększa wydajność i ułatwia utrzymanie kodu.</p>
+
+    <h2>Przykład</h2>
+    
+    <ul>
+		<li><a href="https://www.google.pl">Google</a></li>
+		<li><a href="https://www.mozilla.org">Mozilla</a></li>
+		<li><a href="http://www.opera.com">Opera</a></li>
+		<li><a href="http://www.apple.com">Apple</a></li>
+		<li><a href="http://www.microsoft.com">Microsoft</a></li>
+	</ul>
+
+
     
 </body>
 </html>
